@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "trading-strategy-jupyter-env"
+version = "0.1.0"
+description = "Trading Strategy Jupyter environment"
+authors = ["Hieu Nguyen <hieu@tradingstrategy.ai>"]
+license = "APGL"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+trade-executor = {path = "./deps/trade-executor", develop = true}
+jupyterlab = "^3.4.3"
+
+# web3-ethereum-defi's data
+tqdm = "^4.64.0"
+pandas = "^1.4.2"
+matplotlib = "^3.5.2"
+plotly = "^5.8.2"
+gql = {extras = ["requests"], version = "^3.3.0"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
