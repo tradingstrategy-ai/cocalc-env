@@ -1,8 +1,8 @@
 version: "3"
 services:
-  jupyter-env:
-    container_name: jupyter-env
-    image: trading-strategy-jupyter-env:latest
+  jupyter_env:
+    container_name: jupyter_env
+    image: ghcr.io/tradingstrategy-ai/jupyter-env:${JUPYTER_ENV_VERSION:-master}
     ports:
       - "127.0.0.1:8989:8989"
     volumes:
