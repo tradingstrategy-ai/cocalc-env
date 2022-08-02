@@ -2,10 +2,31 @@
 
 Dockerized Jupyter environment for [Trading Strategy algorithmic trading framework and protocol](https://tradingstrategy.ai/).
 
+## Prerequisites
+
+* Docker 
+* Docker Compose
+* Github account
+* Github [PAT](https://github.com/settings/tokens) (Personal Access Token) with `read:packages` permission 
 
 ## Get started
 
-Clone this repository.
+If you don't have a PAT yet, you can [generate a new one here](https://github.com/settings/tokens/), the scope has to be `read:packages`  
+
+Authenticate to Github Container Registry:
+
+```shell
+docker login ghcr.io
+Username: <YOUR GITHUB USERNAME>
+Password: <YOUR PAT>
+```
+
+Clone this repository:
+
+```shell
+git clone https://github.com/tradingstrategy-ai/jupyter-env.git
+cd jupyter-env
+```
 
 Use docker compose to bring up the environment:
 
