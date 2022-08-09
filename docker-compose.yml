@@ -7,3 +7,5 @@ services:
       - "127.0.0.1:8989:8989"
     volumes:
       - ./notebooks:/app/notebooks
+      - ./cache:/root/.cache/tradingstrategy
+    privileged: true
