@@ -6,7 +6,7 @@ authors = ["Hieu Nguyen <hieu@tradingstrategy.ai>"]
 license = "APGL"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.10,<3.11"
 trade-executor = {path = "./deps/trade-executor", develop = true}
 jupyterlab = "^3.4.3"
 
