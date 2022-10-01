@@ -36,6 +36,15 @@ docker-compose up -d
 
 Then open `http://localhost:8989` in your web browser and start hacking.
 
+## Update to latest version of the pre-built environment
+
+To update the current environment to latest version:
+
+```shell
+docker-compose pull
+docker-compose up -d
+```
+
 
 ## Develop this environment
 
