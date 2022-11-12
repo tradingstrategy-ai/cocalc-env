@@ -1,5 +1,5 @@
-deps/
 .ipynb_checkpoints/
 
 notebooks/
 cache/
+.tradingstrategy/
