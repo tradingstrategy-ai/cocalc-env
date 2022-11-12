@@ -8,4 +8,5 @@ services:
     volumes:
       - ./notebooks:/app/notebooks
       - ./cache:/root/.cache/tradingstrategy
+      - ./.tradingstrategy:/root/.tradingstrategy
     privileged: true
