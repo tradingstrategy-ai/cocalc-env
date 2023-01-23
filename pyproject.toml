@@ -8,14 +8,6 @@ license = "APGL"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
 trade-executor = {path = "./deps/trade-executor", extras = ["execution"], develop = true}
-jupyterlab = "^3.4.3"
-
-# web3-ethereum-defi's data
-tqdm = "^4.64.0"
-pandas = "^1.4.2"
-matplotlib = "^3.5.2"
-plotly = "^5.8.2"
-gql = {extras = ["requests"], version = "^3.3.0"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
