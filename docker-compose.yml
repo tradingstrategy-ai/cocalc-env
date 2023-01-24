@@ -4,9 +4,11 @@ services:
     container_name: jupyter_env
     image: ghcr.io/tradingstrategy-ai/jupyter-env:${JUPYTER_ENV_VERSION:-master}
     ports:
-      - "127.0.0.1:8989:8989"
+      - ${JUPYTER_ENV_PORT:-8989}:8888
     volumes:
       - ./notebooks:/app/notebooks
-      - ./cache:/root/.cache/tradingstrategy
+      - ./jupyter_config.py:/root/.jupyter/jupyter_config.py
+      - ./.cache:/root/.cache/tradingstrategy
       - ./.tradingstrategy:/root/.tradingstrategy
+    # command: jupyter-lab --config /app/jupyter_config.py
     privileged: true
