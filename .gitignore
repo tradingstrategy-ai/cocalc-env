@@ -3,3 +3,4 @@ notebooks/
 
 .cache/
 .tradingstrategy/
+.jupyter/jupyter_server_config.json

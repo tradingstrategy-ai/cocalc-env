@@ -7,8 +7,7 @@ services:
       - ${JUPYTER_ENV_PORT:-8989}:8888
     volumes:
       - ./notebooks:/app/notebooks
-      - ./jupyter_config.py:/root/.jupyter/jupyter_config.py
+      - ./.jupyter:/root/.jupyter
       - ./.cache:/root/.cache/tradingstrategy
       - ./.tradingstrategy:/root/.tradingstrategy
-    # command: jupyter-lab --config /app/jupyter_config.py
     privileged: true
