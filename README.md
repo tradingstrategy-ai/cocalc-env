@@ -6,20 +6,8 @@ Dockerized Jupyter environment for [Trading Strategy algorithmic trading framewo
 
 * Docker 
 * Docker Compose
-* Github account
-* Github [PAT](https://github.com/settings/tokens) (Personal Access Token) with `read:packages` permission 
 
 ## Get started
-
-If you don't have a PAT yet, you can [generate a new one here](https://github.com/settings/tokens/), the scope has to be `read:packages`  
-
-Authenticate to Github Container Registry:
-
-```shell
-docker login ghcr.io
-Username: <YOUR GITHUB USERNAME>
-Password: <YOUR PAT>
-```
 
 Clone this repository:
 
@@ -34,7 +22,17 @@ Use docker compose to bring up the environment:
 docker-compose up -d
 ```
 
-Then open `http://localhost:8989` in your web browser and start hacking.
+The default port is `8989` but you can also use different port if you want, for example:
+
+```shell
+export JUPYTER_ENV_BIND=9999
+docker-compose up -d
+
+# or one liner
+JUPYTER_ENV_BIND=9999 docker-compose up -d
+```
+
+Then open `http://localhost:8989` or `http://localhost:<your chosen port number>` in your web browser and start hacking.
 
 ## Update to latest version of the pre-built environment
 
@@ -44,7 +42,6 @@ To update the current environment to latest version:
 docker-compose pull
 docker-compose up -d
 ```
-
 
 ## Develop this environment
 

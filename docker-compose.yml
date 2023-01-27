@@ -4,7 +4,7 @@ services:
     container_name: jupyter_env
     image: ghcr.io/tradingstrategy-ai/jupyter-env:${JUPYTER_ENV_VERSION:-master}
     ports:
-      - ${JUPYTER_ENV_PORT:-8989}:8888
+      - ${JUPYTER_ENV_BIND:-8989}:8888
     volumes:
       - ./notebooks:/app/notebooks
       - ./.jupyter:/root/.jupyter
