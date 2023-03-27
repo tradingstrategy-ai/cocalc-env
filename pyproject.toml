@@ -7,7 +7,7 @@ license = "APGL"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-trade-executor = {path = "./deps/trade-executor", extras = ["execution"], develop = true}
+trade-executor = {path = "./deps/trade-executor", extras = ["execution", "quantstats"], develop = true}
 
 # poetry is blah
 web3-ethereum-defi = {version="0.14.1", extras=["data"]}
