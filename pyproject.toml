@@ -10,7 +10,7 @@ python = ">=3.10,<3.11"
 trade-executor = {path = "./deps/trade-executor", extras = ["execution", "quantstats"], develop = true}
 
 # poetry is blah
-web3-ethereum-defi = {version="0.14.1", extras=["data"]}
+web3-ethereum-defi = {version="0.18", extras=["data"]}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
