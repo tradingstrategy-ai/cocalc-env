@@ -4745,11 +4745,11 @@ requests = "^2.27.1"
 tblib = "^1.7.0"
 tqdm = "^4.64.1"
 tqdm-loggable = "0.1.3"
-trading-strategy = "0.13.17"
+trading-strategy = "0.13.18"
 typer = {version = "^0.4.0", optional = true}
 
 [package.extras]
-data = ["web3-ethereum-defi (==0.18.2)"]
+data = ["web3-ethereum-defi (==0.18.3)"]
 execution = ["APScheduler (>=3.9.1,<4.0.0)", "colorama (>=0.4.4,<0.5.0)", "coloredlogs (>=15.0.1,<16.0.0)", "kaleido (==0.2.1)", "prompt-toolkit (>=3.0.31,<4.0.0)", "python-dotenv (>=0.21.0,<0.22.0)", "python-logging-discord-handler (>=0.1.3,<0.2.0)", "python-logstash-tradingstrategy @ git+https://github.com/tradingstrategy-ai/python-logstash.git@982dd3e6a374b443f14139508f0c12423193755a", "typer (>=0.4.0,<0.5.0)"]
 qstrader = ["trading-strategy-qstrader (>=0.5,<0.6)"]
 quantstats = ["quantstats (>=0.0.59,<0.0.60)"]
@@ -4761,14 +4761,14 @@ url = "deps/trade-executor"
 
 [[package]]
 name = "trading-strategy"
-version = "0.13.17"
+version = "0.13.18"
 description = "DEX and cryptocurrency trading data for Python - OHCLV, Uniswap, others"
 category = "main"
 optional = false
 python-versions = ">=3.10,<3.11"
 files = [
-    {file = "trading_strategy-0.13.17-py3-none-any.whl", hash = "sha256:54ca1c012f2bb87be377c91e6f169fbd66e2fd96a1ab475019fe367d4a3433fa"},
-    {file = "trading_strategy-0.13.17.tar.gz", hash = "sha256:84718952d67b80cd519b02dbb472435bfb0960921d822fb1994271682dd6bdea"},
+    {file = "trading_strategy-0.13.18-py3-none-any.whl", hash = "sha256:7a74608b8e3a52ffb9d3d751a703ee7fdb0c9bd8e2a94b97b55e1a8e71b8335a"},
+    {file = "trading_strategy-0.13.18.tar.gz", hash = "sha256:3013da7d7f995a181f9f724f650e9d1406d338df197fb989f8a5570bd3bb638e"},
 ]
 
 [package.dependencies]
