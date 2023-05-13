@@ -1,13 +1,14 @@
 version: "3"
 services:
-  jupyter_env:
-    container_name: jupyter_env
-    image: ghcr.io/tradingstrategy-ai/jupyter-env:${JUPYTER_ENV_VERSION:-master}
+  cocalc-env:
+    container_name: cocalc-env
+    image: ghcr.io/tradingstrategy-ai/cocalc-env:${COCALC_ENV_VERSION:-master}
     ports:
-      - ${JUPYTER_ENV_BIND:-8989}:8888
+      # Map host port 7777 to plain http
+      - ${COCALC_ENV_BIND:-7777}:80
     volumes:
       - ./notebooks:/app/notebooks
       - ./.jupyter:/root/.jupyter
       - ./.cache:/root/.cache/tradingstrategy
       - ./.tradingstrategy:/root/.tradingstrategy
-    privileged: true
+

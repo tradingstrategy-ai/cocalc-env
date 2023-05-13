@@ -1,11 +1,12 @@
-# Trading Strategy Jupyter environment
+# Trading Strategy CoCalc environment
 
-Dockerized Jupyter environment for [Trading Strategy algorithmic trading framework and protocol](https://tradingstrategy.ai/).
+Dockerized CoCalc environment for [Trading Strategy algorithmic trading framework and protocol](https://tradingstrategy.ai/).
 
 ## Prerequisites
 
 * Docker 
 * Docker Compose
+* [Based on CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master)
 
 ## Get started
 
@@ -28,37 +29,43 @@ docker-compose up -d
 The default port is `8989` but you can also use different port if you want, for example:
 
 ```shell
-export JUPYTER_ENV_BIND=9999
+export COCALC_ENV_BIND=9999
 docker-compose up -d
 
 # or one liner
-JUPYTER_ENV_BIND=9999 docker-compose up -d
+COCALC_ENV_BIND=9999 docker-compose up -d
 ```
 
-Then open `http://localhost:8989` or `http://localhost:<your chosen port number>` in your web browser and start hacking.
+Then open `http://localhost:9999` in your web browser.
+You can browse available
 
 ## Update to latest version of the pre-built environment
 
-To update the current environment to latest version:
+To update the current environment to the latest `trade-exeuctor` master:
 
 ```shell
 docker-compose pull
 docker-compose up -d
 ```
 
+## Adding notebooks
+
+The notebooks are mapped to `notebook` folder on your computer host file system.
+You can copy in more notebooks, backup, et.
+
 ## Develop this environment
 
 Build the Docker image from the scratch: 
 
 ```shell
-make install
-docker build -t ghcr.io/tradingstrategy-ai/jupyter-env:local .
+# Warning: 15 GB download
+docker build -t ghcr.io/tradingstrategy-ai/cocalc-env:local .
 ```
 
 Test the built image:
 
 ```shell
-JUPYTER_ENV_VERSION=local docker-compose up -d
+COCALC_ENV_VERSION=local docker-compose up -d
 ```
 
 Then open `http://localhost:8989` in your web browser to test.
