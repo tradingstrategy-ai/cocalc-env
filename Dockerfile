@@ -11,7 +11,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 ENV PIP_DEFAULT_TIMEOUT=100
 RUN pip3 install poetry==1.4.2
 
-WORKDIR /app
+WORKDIR /app-export
 
 # Export dependencies from Poetry and then 
 # install them to the Cocalc's location using pip
@@ -20,4 +20,6 @@ COPY deps ./deps/
 RUN poetry export requirements.txt
 RUN pip3 install -r requirements.txt
 
-CMD ["jupyter-lab"]
+CMD /root/run.py
+
+EXPOSE 22 80 443

@@ -1,3 +1,4 @@
 [submodule "deps/trade-executor"]
 	path = deps/trade-executor
 	url = https://github.com/tradingstrategy-ai/trade-executor
+	shallow = true

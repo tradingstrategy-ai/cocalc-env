@@ -12,8 +12,11 @@ Dockerized Jupyter environment for [Trading Strategy algorithmic trading framewo
 Clone this repository:
 
 ```shell
-git clone https://github.com/tradingstrategy-ai/jupyter-env.git
-cd jupyter-env
+git clone https://github.com/tradingstrategy-ai/cocalc-env.git
+cd cocalc-end
+
+# Pull in trade-executor pinned down branch
+git submodule update --init --recursive  
 ```
 
 Use docker compose to bring up the environment:

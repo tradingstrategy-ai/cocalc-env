@@ -1,5 +1,5 @@
 install:
-	git clone --recursive https://github.com/tradingstrategy-ai/trade-executor deps/trade-executor
+	git clone -–depth 1 --recursive https://github.com/tradingstrategy-ai/trade-executor deps/trade-executor
 	poetry shell
 	poetry install
 
