@@ -1,20 +1,23 @@
-FROM python:3.10.9
+# This base image is 15 GB+
+# Comes with Julia, JavaScript, LibreOffice, Firefox, etc.
+FROM sagemathinc/cocalc-v2
 
-RUN apt-get update && \
-    apt-get install build-essential curl git nodejs htop -y && \
-    pip install --no-cache --upgrade pip && \
-    curl -sSL https://install.python-poetry.org | python - --version 1.3.0
-
+# https://stackoverflow.com/a/54763270/315168
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="/root/.local/bin:$PATH"
+ENV PIP_NO_CACHE_DIR=off 
+ENV PIP_DISABLE_PIP_VERSION_CHECK=on 
+ENV PIP_DEFAULT_TIMEOUT=100
+RUN pip3 install poetry==1.4.2
 
 WORKDIR /app
 
-# install dependencies
+# Export dependencies from Poetry and then 
+# install them to the Cocalc's location using pip
 COPY pyproject.toml poetry.lock ./
 COPY deps ./deps/
-RUN poetry config virtualenvs.create false && \
-    poetry install --only main --no-interaction --no-ansi
+RUN poetry export requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["jupyter-lab"]
