@@ -9,12 +9,13 @@ Dockerized CoCalc environment for [Trading Strategy algorithmic trading framewor
 
 ## Overview
 
-- [Use Caddy web server to protect the instance using HTTP Basic Auth](https://caddy.community/t/using-caddyfiles-basic-auth-with-environment-variables-and-docker/19918)
-    - Access log files with Caddy
+- Comes with [Trading Strategy Python packages preinstalled](https://github.com/tradingstrategy-ai/trade-executor/)
 - User database is managed via CoCalc's built-in PostgreSQL server
     - [Mapped to local file system for persistency](https://stackoverflow.com/a/41650891/315168)
 - Any user can create their own CoCalc projects
-- Seeded with example notebooks
+    - Users' ipynb files will be under `cocalc-data/$UID`, a folder per user
+- [Use Caddy web server to protect the instance using HTTP Basic Auth](https://caddy.community/t/using-caddyfiles-basic-auth-with-environment-variables-and-docker/19918)
+    - Access log files with Caddy
 
 ## Prerequisites
 
@@ -25,7 +26,6 @@ To run this project you need:
 
 ## Limitations
 
-* Docker container *must be* mapped to port 8080 if no HTTPS (something wrong with the CoCalc base image?)
 * Choose `ipykernel` 
 
 ## Notes
@@ -124,3 +124,17 @@ docker run --name=cocalc --env NOSSL=true -d -v ~/cocalc:/projects -p 8080:80 sa
 Then open `http://localhost:9999` in your web browser to test.
 
 See [Dockerfile](./Dockerfile) for more details.
+
+## Troubleshooting the instance
+
+When CoCalc is running you can shell in.
+To view installed packages:
+
+```shell
+docker-compose exec cocalc /bin/bash
+pip3 list
+```
+
+## License
+
+AGPL

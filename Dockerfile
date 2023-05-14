@@ -20,13 +20,7 @@ COPY pyproject.toml poetry.lock ./
 COPY deps ./deps/
 RUN poetry config virtualenvs.create false \
   && poetry install --only main --no-interaction --no-ansi
-
-# Install to whatever Python location CoCalc has
-# RUN pip3 install -r requirements.txt
-
-
-
-
+=
 CMD /root/run.py
 
 EXPOSE 22 80 443

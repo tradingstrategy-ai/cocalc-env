@@ -2,6 +2,7 @@ version: "3"
 services:
   cocalc:
     container_name: cocalc
+    # export COCALC_ENV_VERSION=local to use the local Docker image build
     image: ghcr.io/tradingstrategy-ai/cocalc-env:${COCALC_ENV_VERSION:-master}
     ports:
       # Map host port 8080 to plain http
@@ -12,6 +13,7 @@ services:
     volumes:
       # Map Cocalc's working folder to the host
       # User database is cocalc-data/postgres
+      # Each Cocal users files fill be cocalc-data/$UID/*.ipynb
       - $PWD/cocalc-data:/projects
   caddy:
     container_name: caddy

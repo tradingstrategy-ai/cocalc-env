@@ -2,6 +2,7 @@ notebooks/
 .ipynb_checkpoints/
 
 .cache/
+cocalc-data/
 .tradingstrategy/
 .jupyter/jupyter_server_config.json
 
