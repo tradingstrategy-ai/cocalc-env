@@ -1,24 +1,30 @@
 version: "3"
 services:
-  cocalc-env:
-    container_name: cocalc-env
+  cocalc:
+    container_name: cocalc
     image: ghcr.io/tradingstrategy-ai/cocalc-env:${COCALC_ENV_VERSION:-master}
     ports:
-      # Map host port 9999 to plain http
-      - ${COCALC_ENV_BIND:-9999}:80
+      # Map host port 8080 to plain http
+      # Use for debugging only
+      - ${COCALC_ENV_BIND:-8080}:80
     environment:
       NOSSL: "true"
+    volumes:
+      # Map Cocalc's working folder to the host
+      # User database is cocalc-data/postgres
+      - $PWD/cocalc-data:/projects
   caddy:
     container_name: caddy
     image: caddy:2.6.4-alpine   
     restart: unless-stopped    
+    ports:
+      - "9997:9997"
+      - "9998:9998"
     environment:
       - ACME_AGREE=true
     # Contains BASIC_AUTH_USER and  BASIC_AUTH_PASSWORD
     env_file:
       - secrets.env
-    # We directly bind to the host ports and there is no Docker network here
-    network_mode: host
     volumes:
       - $PWD/Caddyfile:/etc/caddy/Caddyfile
       - $PWD/logs:/var/log/caddy # shared volume with caddy

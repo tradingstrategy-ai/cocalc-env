@@ -7,6 +7,15 @@ Dockerized CoCalc environment for [Trading Strategy algorithmic trading framewor
 - The notebook execution continues even if you close the browser or a notebook
 - The output will correctly resumed and stored on the server
 
+## Overview
+
+- [Use Caddy web server to protect the instance using HTTP Basic Auth](https://caddy.community/t/using-caddyfiles-basic-auth-with-environment-variables-and-docker/19918)
+    - Access log files with Caddy
+- User database is managed via CoCalc's built-in PostgreSQL server
+    - [Mapped to local file system for persistency](https://stackoverflow.com/a/41650891/315168)
+- Any user can create their own CoCalc projects
+- Seeded with example notebooks
+
 ## Prerequisites
 
 To run this project you need:
@@ -44,7 +53,7 @@ Replace "tradingstrategy" / "mypassword" with your own username and password com
 ```shell
 echo "HTTP_BASIC_AUTH_USER='tradingstrategy'" >> secrets.env
 HASHED_PASSWORD=$(docker-compose run caddy caddy hash-password --plaintext "mypassword")
-echo "HTTP_BASIC_AUTH_PASSWORD='$HASHED_PASSWORD"' >> secrets.env
+echo "HTTP_BASIC_AUTH_PASSWORD='$HASHED_PASSWORD'" >> secrets.env
 ```
 
 Use docker compose to bring up the environment for the first time:
