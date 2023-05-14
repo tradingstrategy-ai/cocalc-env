@@ -1,0 +1,65 @@
+#
+# Caddy HTTP basic auth proxy for CoCald
+# https://tradingstrategy.ai
+#
+{
+    # Disable the Caddy admin API    
+    admin off
+    email no-reply@example.com
+
+    # Use the log file mapped to the host FS
+    log {
+        output file /var/log/caddy/error.log.json
+        format json
+    }
+}
+
+#
+# Listen to any domain at port 9998
+#
+
+http://:9998 {
+
+    handle {
+        basicauth {
+	        ${BASIC_AUTH_USER} ${BASIC_AUTH_PASSWORD}
+        }
+        reverse_proxy cocalc:9999 {
+            header_up X-Real-IP {remote_host}
+        }
+    }
+
+    log {
+        output file /var/log/caddy/access.log.json
+        format json
+    }    
+}
+
+#
+# Plain index.html server to test Caddy and basic auth
+#
+
+http://:9997 {
+
+    handle {
+        basicauth {
+            {$HTTP_BASIC_AUTH_USER} {$HTTP_BASIC_AUTH_PASSWORD}
+            # {$HTTP_BASIC_AUTH_USER} $2a$14$FoQCXg6rXOAJpORA6gKE2ugNcUKlnNe11XNeP34tSubDlyem7xjXK
+        }           
+
+        # Mapped in docker-compose.yml
+        root * /var/static
+        file_server browse
+    }
+
+    # Set the default 404 page
+    # https://caddyserver.com/docs/caddyfile/directives/handle_errors
+    handle_errors {
+        respond "{http.error.status_code} {http.error.status_text}"
+    }    
+
+    log {
+        output file /var/log/caddy/access-test.log.json
+        format json
+    }      
+}

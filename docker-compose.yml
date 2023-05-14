@@ -6,11 +6,20 @@ services:
     ports:
       # Map host port 9999 to plain http
       - ${COCALC_ENV_BIND:-9999}:80
-    volumes:
-      - ./notebooks:/app/notebooks
-      - ./.jupyter:/root/.jupyter
-      - ./.cache:/root/.cache/tradingstrategy
-      - ./.tradingstrategy:/root/.tradingstrategy
     environment:
-      - NOSSL:true
-
+      NOSSL: "true"
+  caddy:
+    container_name: caddy
+    image: caddy:2.6.4-alpine   
+    restart: unless-stopped    
+    environment:
+      - ACME_AGREE=true
+    # Contains BASIC_AUTH_USER and  BASIC_AUTH_PASSWORD
+    env_file:
+      - secrets.env
+    # We directly bind to the host ports and there is no Docker network here
+    network_mode: host
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/logs:/var/log/caddy # shared volume with caddy
+      - $PWD/static:/var/static # shared volume with caddy

@@ -2,15 +2,27 @@
 
 Dockerized CoCalc environment for [Trading Strategy algorithmic trading framework and protocol](https://tradingstrategy.ai/).
 
+## CoCalc benefits over vanilla Jupyter notebooks
+
+- The notebook execution continues even if you close the browser or a notebook
+- The output will correctly resumed and stored on the server
+
 ## Prerequisites
+
+To run this project you need:
 
 * Docker 
 * Docker Compose
-* [Based on CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master)
 
 ## Limitations
 
-* *Must be* run in port 8080 if no HTTPS (something wrong with the CoCalc base image)
+* Docker container *must be* mapped to port 8080 if no HTTPS (something wrong with the CoCalc base image?)
+* Choose `ipykernel` 
+
+## Notes
+
+* When you sign in you can create any user - there is no email verification
+* [Based on CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master)
 
 ## Get started
 
@@ -24,10 +36,21 @@ cd cocalc-end
 git submodule update --init --recursive  
 ```
 
-Use docker compose to bring up the environment:
+Create HTTP Basic Auth username and password that will protect the server.
+These are stored in `secrets.env` Docker environment file. 
+[Note that it is important to wrap variable values to '' as otherwise Docker attempts to expand dollar sign](https://stackoverflow.com/questions/75322493/how-can-i-properly-escape-the-value-of-a-env-variable-that-contains-a-dollar-si).
+Replace "tradingstrategy" / "mypassword" with your own username and password combination:
 
 ```shell
-docker-compose up -d
+echo "HTTP_BASIC_AUTH_USER='tradingstrategy'" >> secrets.env
+HASHED_PASSWORD=$(docker-compose run caddy caddy hash-password --plaintext "mypassword")
+echo "HTTP_BASIC_AUTH_PASSWORD='$HASHED_PASSWORD"' >> secrets.env
+```
+
+Use docker compose to bring up the environment for the first time:
+
+```shell
+docker-compose up 
 ```
 
 The default port is `8080` but you can also use different port if you want, for example:

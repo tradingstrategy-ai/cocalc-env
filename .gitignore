@@ -4,3 +4,7 @@ notebooks/
 .cache/
 .tradingstrategy/
 .jupyter/jupyter_server_config.json
+
+secrets.env
+logs/*.log
+logs/*.json
