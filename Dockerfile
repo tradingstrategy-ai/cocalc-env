@@ -20,7 +20,7 @@ COPY pyproject.toml poetry.lock ./
 COPY deps ./deps/
 RUN poetry config virtualenvs.create false \
   && poetry install --only main --no-interaction --no-ansi
-=
+
 CMD /root/run.py
 
 EXPOSE 22 80 443

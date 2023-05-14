@@ -4,6 +4,8 @@ Dockerized CoCalc environment for [Trading Strategy algorithmic trading framewor
 
 ## CoCalc benefits over vanilla Jupyter notebooks
 
+- [CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master) offers a multi-user
+  environment, where each user gets their own username, password and project folders
 - The notebook execution continues even if you close the browser or a notebook
 - The output will correctly resumed and stored on the server
 
@@ -24,14 +26,11 @@ To run this project you need:
 * Docker 
 * Docker Compose
 
-## Limitations
-
-* Choose `ipykernel` 
-
 ## Notes
 
-* When you sign in you can create any user - there is no email verification
-* [Based on CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master)
+* When you sign in, you need to create a new user - the email verification is disabled
+* Choose `ipykernel` - Sage Kernel does not seem to support our custom installed packages
+
 
 ## Get started
 
@@ -56,16 +55,26 @@ HASHED_PASSWORD=$(docker-compose run caddy caddy hash-password --plaintext "mypa
 echo "HTTP_BASIC_AUTH_PASSWORD='$HASHED_PASSWORD'" >> secrets.env
 ```
 
+Build a local image of the environment:
+
+```shell
+export COCALC_ENV_VERSION=local
+docker build -t ghcr.io/tradingstrategy-ai/cocalc-env:$COCALC_ENV_VERSION .
+
+# Show the versions we took
+docker run ghcr.io/tradingstrategy-ai/cocalc-env:$COCALC_ENV_VERSION pip3 list
+```
+
 Use docker compose to bring up the environment for the first time:
+
 
 ```shell
 docker-compose up 
 ```
 
-The default port is `8080` but you can also use different port if you want, for example:
+The default port is `9998` and we will listen to any IPs:
 
 ```shell
-export COCALC_ENV_BIND=9999
 docker-compose up -d
 
 # or one liner
@@ -77,17 +86,27 @@ You can browse available
 
 ## Update to latest version of the pre-built environment
 
-To update the current environment to the latest `trade-exeuctor` master:
+Assuming you have existing secrets and user database, and you want to
+update the current environment to the latest `trade-exeuctor` master:
 
 ```shell
-docker-compose pull
-docker-compose up -d
+cd deps/trade-executor
+git checkout master  # Pull latest changes
+git pull
+cd ../..
+git add deps/trade-executor
+poetry update  # Rebuild Poetry lock file
+git commit -m "Updated to the latest master"
+git push
 ```
 
-## Adding notebooks
+And then rebuild the image based on the above instructions.
 
-The notebooks are mapped to `notebook` folder on your computer host file system.
-You can copy in more notebooks, backup, et.
+```
+export COCALC_ENV_VERSION=local
+docker build -t ghcr.io/tradingstrategy-ai/cocalc-env:$COCALC_ENV_VERSION .
+docker compose up -d 
+```
 
 ## Develop this environment
 
@@ -133,6 +152,13 @@ To view installed packages:
 ```shell
 docker-compose exec cocalc /bin/bash
 pip3 list
+```
+
+If `docker-compose up` refuses to shutdown via CTRL+C,
+suspend via CTRL+Z and then do:
+
+```shell
+kill -SIGKILL %1 && fg
 ```
 
 ## License
