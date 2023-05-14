@@ -8,6 +8,10 @@ Dockerized CoCalc environment for [Trading Strategy algorithmic trading framewor
 * Docker Compose
 * [Based on CoCalc Docker image](https://github.com/sagemathinc/cocalc-docker/tree/master)
 
+## Limitations
+
+* *Must be* run in port 8080 if no HTTPS (something wrong with the CoCalc base image)
+
 ## Get started
 
 Clone this repository:
@@ -26,7 +30,7 @@ Use docker compose to bring up the environment:
 docker-compose up -d
 ```
 
-The default port is `8989` but you can also use different port if you want, for example:
+The default port is `8080` but you can also use different port if you want, for example:
 
 ```shell
 export COCALC_ENV_BIND=9999
@@ -58,6 +62,7 @@ You can copy in more notebooks, backup, et.
 Build the Docker image from the scratch: 
 
 ```shell
+git submodule update --init --recursive  
 # Warning: 15 GB download
 docker build -t ghcr.io/tradingstrategy-ai/cocalc-env:local .
 ```
@@ -65,9 +70,25 @@ docker build -t ghcr.io/tradingstrategy-ai/cocalc-env:local .
 Test the built image:
 
 ```shell
-COCALC_ENV_VERSION=local docker-compose up -d
+COCALC_ENV_VERSION=local docker-compose up 
 ```
 
-Then open `http://localhost:8989` in your web browser to test.
+Or:
+
+```shell
+docker run -v ~/cocalc:/projects -p 443:443 ghcr.io/tradingstrategy-ai/cocalc-env:local
+```
+
+```shell
+docker run -v ~/cocalc:/projects --env NOSSL=true -p 9999:80 ghcr.io/tradingstrategy-ai/cocalc-env:local
+```
+
+Testing with vanilla CoCalc
+
+```shell
+docker run --name=cocalc --env NOSSL=true -d -v ~/cocalc:/projects -p 8080:80 sagemathinc/cocalc-v2
+```
+
+Then open `http://localhost:9999` in your web browser to test.
 
 See [Dockerfile](./Dockerfile) for more details.

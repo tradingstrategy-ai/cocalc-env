@@ -1,5 +1,6 @@
 # This base image is 15 GB+
 # Comes with Julia, JavaScript, LibreOffice, Firefox, etc.
+# https://github.com/sagemathinc/cocalc-docker/blob/master/Dockerfile
 FROM sagemathinc/cocalc-v2
 
 # https://stackoverflow.com/a/54763270/315168
@@ -22,6 +23,9 @@ RUN poetry config virtualenvs.create false \
 
 # Install to whatever Python location CoCalc has
 # RUN pip3 install -r requirements.txt
+
+
+
 
 CMD /root/run.py
 
