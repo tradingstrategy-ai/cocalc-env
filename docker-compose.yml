@@ -4,6 +4,10 @@ services:
     container_name: cocalc
     # export COCALC_ENV_VERSION=local to use the local Docker image build
     image: ghcr.io/tradingstrategy-ai/cocalc-env:${COCALC_ENV_VERSION:-master}
+    # Enable CPU/memory/etc. gauges
+    # https://stackoverflow.com/a/74065137/315168
+    security_opt:
+      - seccomp:unconfined    
     ports:
       # Map host port 8080 to plain http
       # Use for debugging only
